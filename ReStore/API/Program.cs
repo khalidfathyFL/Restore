@@ -12,6 +12,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+builder.Services.AddCors();
 // add dataabse
 builder.Services.AddDbContext<StoreContext>((opt) =>
 {
@@ -58,6 +61,10 @@ catch (Exception ex)
     // If any error occurs during migration or initialization, log the error with the logger.
     logger.LogError(ex, "A problem occurred during migration");
 }
+
+app.UseCors(opt=>{
+    opt.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+});
 app.Run();
 
 
